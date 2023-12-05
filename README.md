@@ -24,7 +24,7 @@ Clone the repository:
 
 ### bash
 
-git clone https://github.com/your-username/airbnb-clone.git
+git clone https://github.com/nenyeonyema/AirBnB_clone
 Navigate to the project directory:
 
 ### bash
