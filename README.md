@@ -54,5 +54,5 @@ Oluwatobiloba Ojo
 ## Acknowledgments
 Appreciation goes ALX Software Engineers for the learning opportunity and engaging projects.
 Thanks to the creators of Airbnb for inspiring this project.
-Special thanks to our contributors for their valuable efforts.
+Special thanks to us the contributors for our valuable efforts.
 Built with ❤️ and ☕️.
