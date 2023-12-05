@@ -48,10 +48,8 @@ Visit http://localhost:3000 in your browser to see the Airbnb Clone in action.
 
 ## Contributors
 
-Contributors are:
-
-### Chinenye Genevieve Onyema
-### Oluwatobiloba Ojo
+Chinenye Genevieve Onyema
+Oluwatobiloba Ojo
 
 ## Acknowledgments
 Appreciation goes ALX Software Engineers for the learning opportunity and engaging projects.
