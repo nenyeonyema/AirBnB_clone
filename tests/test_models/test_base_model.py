@@ -7,10 +7,11 @@ import os
 import json
 import models
 import unittest
-
+import sys
 from datetime import datetime
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
+sys.path.insert(0, './models')
 
 
 class TestBaseModel(unittest.TestCase):

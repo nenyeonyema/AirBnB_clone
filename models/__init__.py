@@ -1,7 +1,6 @@
-i#!/usr/bin/python3
+#!/usr/bin/python3
 """
-Importing FileStorage and setting that equal to storage
-and calling reload
+Importing FileStorage, setting it equal to storage, calling reload
 """
 from models.engine.file_storage import FileStorage
 storage = FileStorage()
