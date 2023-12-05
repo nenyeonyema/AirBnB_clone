@@ -3,15 +3,17 @@ Welcome to our Airbnb Clone project! This project aims to replicate the core fun
 contribute or a user interested in trying out our application, this README.md file will guide you through the setup and usage of our Airbnb Clone.
 
 # Table of Contents
+Getting Started
+	Prerequisites
+	Installation
+Usage
+Contributors
+License
+Acknowledgments
+
+
 ## Getting Started
-## Prerequisites
-## Installation
-## Usage
-## Contributors
-## License
-## Acknowledgments
-## Getting Started
-## Prerequisites
+### Prerequisites
 
 Make sure you have the following tools installed on your machine:
 
@@ -20,37 +22,38 @@ npm or Yarn
 Installation
 Clone the repository:
 
-bash
+### bash
 
 git clone https://github.com/your-username/airbnb-clone.git
 Navigate to the project directory:
 
-bash
+### bash
 cd airbnb-clone
 Install dependencies:
 
-bash
+### bash
 npm install
-# or
+### or
 yarn install
-Usage
+
+## Usage
 After successfully installing the project, you can start the development server:
 
-bash
+### bash
 
 npm start
-# or
+### or
 yarn start
 Visit http://localhost:3000 in your browser to see the Airbnb Clone in action.
 
-# Contributors
+## Contributors
 
 Contributors are:
 
-## Chinenye Genevieve Onyema
-## Oluwatobiloba Ojo
+### Chinenye Genevieve Onyema
+### Oluwatobiloba Ojo
 
-# Acknowledgments
+## Acknowledgments
 Appreciation goes ALX Software Engineers for the learning opportunity and engaging projects.
 Thanks to the creators of Airbnb for inspiring this project.
 Special thanks to our contributors for their valuable efforts.
