@@ -48,7 +48,7 @@ Visit http://localhost:3000 in your browser to see the Airbnb Clone in action.
 
 ## Contributors
 
-Chinenye Genevieve Onyema
+Chinenye Genevieve Onyema <br>
 Oluwatobiloba Ojo
 
 ## Acknowledgments
