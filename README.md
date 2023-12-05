@@ -2,8 +2,8 @@
 Welcome to our Airbnb Clone project! This project aims to replicate the core functionality of the popular accommodation rental platform Airbnb. Whether you're a developer looking to
 contribute or a user interested in trying out our application, this README.md file will guide you through the setup and usage of our Airbnb Clone.
 
-AirBnB Clone Command Interpreter
-Description:
+## AirBnB Clone Command Interpreter
+### Description:
 The AirBnB Clone Command Interpreter is a tool that allows users to interact with the system by entering commands through a text-based interface. In this simplified version, the focus is on managing information about people. The command interpreter enables users to create, update, and delete records of individuals, as well as list all the people in the system. Additionally, it provides functionality to save and load data to and from a file.
 
 ## How to Start It:
