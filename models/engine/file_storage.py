@@ -6,10 +6,9 @@ FileStorage module.
 import json
 from datetime import datetime
 from os.path import isfile
-
-from models.base_model import BaseModel
 import sys
-sys.path.append('.')
+import os
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -29,20 +28,26 @@ class FileStorage:
 
     def save(self):
         """Serializes __objects to the JSON file."""
+        serialized_objects = {}
+        for key, obj in FileStorage.__objects.items():
+            class_name = obj.__class__.__name__
+            obj_id = obj.id
+            new_key = "{}.{}".format(class_name, obj_id)
+            serialized_objects[new_key] = obj.to_dict()
+
         with open(FileStorage.__file_path, 'w', encoding='utf-8') as file:
-            obj_dict = {key: obj.to_dict() for key,
-                        obj in FileStorage.__objects.items()}
-            json.dump(obj_dict, file)
+            json.dump(serialized_objects, file)
 
     def reload(self):
         """Deserializes the JSON file to __objects."""
-        try:
+        if os.path.isfile(FileStorage.__file_path):
             with open(FileStorage.__file_path, 'r', encoding='utf-8') as file:
-                obj_dict = json.load(file)
-                for key, value in obj_dict.items():
-                    cls_name, obj_id = key.split('.')
-                    cls = eval(cls_name)
-                    obj = cls(**value)
-                    FileStorage.__objects[key] = obj
-        except FileNotFoundError:
-            pass
+                try:
+                    obj_dict = json.load(file)
+                except ValueError:
+                    obj_dict = {}
+
+            for key, value in obj_dict.items():
+                class_name, obj_id = key.split('.')
+                obj = eval(class_name)(**value)
+                FileStorage.__objects[key] = obj
