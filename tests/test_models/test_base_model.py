@@ -65,6 +65,45 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(sorted(my_model_dict.keys()), sorted(expected_keys))
         self.assertEqual(my_model_dict['__class__'], 'BaseModel')
 
+    def test_instance_creation_from_dict(self):
+        """ Test Instance creation from dict"""
+        data = {
+            'id': 'some_id',
+            'created_at': '2022-01-01T12:34:56.789000',
+            'updated_at': '2022-01-02T01:23:45.678000',
+            '__class__': 'BaseModel',
+            'additional_attribute': 'value'
+        }
+        new_instance = BaseModel(**data)
+        self.assertIsInstance(new_instance, BaseModel)
+        self.assertEqual(new_instance.id, 'some_id')
+        self.assertEqual(new_instance.additional_attribute, 'value')
+        self.assertIsInstance(new_instance.created_at, datetime)
+        self.assertIsInstance(new_instance.updated_at, datetime)
+
+    def test_to_dict_with_instance_from_dict(self):
+        """ Test to dict with instance from dict """
+        data = {
+            'id': 'some_id',
+            'created_at': '2022-01-01T12:34:56.789000',
+            'updated_at': '2022-01-02T01:23:45.678000',
+            '__class__': 'BaseModel',
+            'additional_attribute': 'value'
+        }
+        new_instance = BaseModel(**data)
+        new_instance_dict = new_instance.to_dict()
+        self.assertIn('additional_attribute', new_instance_dict)
+        self.assertEqual(new_instance_dict['additional_attribute'])
+
+    def test_json_serialization(self):
+        """ Test json serialization """
+        json_str = json.dumps(self.base_model.to_dict())
+        self.assertIsInstance(json_str, str)
+        self.assertIn('id', json_str)
+        self.assertIn('created_at', json_str)
+        self.assertIn('updated_at', json_str)
+        self.assertIn('__class__', json_str)
+        self.assertEqual(json.loads(json_str)['__class__'], 'BaseModel')
 
 if __name__ == "__main__":
     unittest.main()
