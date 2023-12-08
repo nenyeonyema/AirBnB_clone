@@ -51,3 +51,7 @@ class FileStorage:
                 class_name, obj_id = key.split('.')
                 obj = eval(class_name)(**value)
                 FileStorage.__objects[key] = obj
+
+
+storage = FileStorage()
+storage.reload()
