@@ -10,12 +10,17 @@ import sys
 import os
 import models
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
     """
     FileStorage class.
     """
+    CLASSES = {
+        'BaseModel': BaseModel,
+        'User': User,
+    }
 
     __file_path = "file.json"
     __objects = {}
@@ -53,10 +58,15 @@ class FileStorage:
             for key, value in obj_dict.items():
                 class_name = value['__class__']
                 del value['__class__']
-                obj_instance = eval(class_name)(**value)
+                class_obj = self.get_class_by_name(class_name)
+                obj_instance = class_obj(**value)
                 self.new(obj_instance)
         except FileNotFoundError:
             return
+
+    def get_class_by_name(self, class_name):
+        """Get class by its name."""
+        return getattr(models, class_name, BaseModel)
 
     def classes(self):
         """Returns a list of available classes."""
