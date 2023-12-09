@@ -57,3 +57,13 @@ class FileStorage:
                 self.new(obj_instance)
         except FileNotFoundError:
             return
+
+    def classes(self):
+        """Returns a list of available classes."""
+        return [class_obj.__name__ for class_obj in models.__dict__.values()
+                if type(class_obj) == type]
+
+
+if __name__ == "__main__":
+    storage = FileStorage()
+    storage.reload()
