@@ -11,7 +11,6 @@ import sys
 from datetime import datetime
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
-sys.path.insert(0, './models')
 
 
 class TestBaseModel(unittest.TestCase):
@@ -93,15 +92,6 @@ class TestBaseModel(unittest.TestCase):
         new_instance = BaseModel(**data)
         new_instance_dict = new_instance.to_dict()
         self.assertIn('additional_attribute', new_instance_dict)
-
-    def test_json_serialization(self):
-        """ Test json serialization
-        self.assertIn('id', json_str)
-        self.assertIn('created_at', json_str)
-        self.assertIn('updated_at', json_str)
-        self.assertIn('__class__', json_str)
-        self.assertEqual(json.loads(json_str)['__class__'], 'BaseModel')
-        """
 
 
 if __name__ == "__main__":
