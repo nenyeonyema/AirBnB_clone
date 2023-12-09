@@ -14,6 +14,27 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
 
+    def do_quit(self, arg):
+        """Quit command to exit the program."""
+        return True
+
+    def do_EOF(self, arg):
+        """EOF command to exit the program."""
+        print()
+        return True
+
+    def emptyline(self):
+        """Do nothing on an empty input line."""
+        pass
+
+    def help_quit(self):
+        """Help documentation for quit command."""
+        print("Quit command to exit the program")
+
+    def help_EOF(self):
+        """Help documentation for EOF command."""
+        print("EOF command to exit the program")
+
     def cmdloop(self):
         while True:
             try:
@@ -143,27 +164,6 @@ class HBNBCommand(cmd.Cmd):
                             storage.all()[key].save()
                         except Exception as e:
                             print(e)
-
-    def do_quit(self, arg):
-        """Quit command to exit the program."""
-        return True
-
-    def do_EOF(self, arg):
-        """EOF command to exit the program."""
-        print()
-        return True
-
-    def emptyline(self):
-        """Do nothing on an empty input line."""
-        pass
-
-    def help_quit(self):
-        """Help documentation for quit command."""
-        print("Quit command to exit the program")
-
-    def help_EOF(self):
-        """Help documentation for EOF command."""
-        print("EOF command to exit the program")
 
 
 if __name__ == '__main__':
