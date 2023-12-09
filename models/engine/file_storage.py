@@ -13,13 +13,17 @@ from models.base_model import BaseModel
 
 
 class FileStorage:
-    """FileStorage class."""
+    """
+    FileStorage class.
+    """
 
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
-        """Returns the dictionary __objects."""
+        """
+        Returns the dictionary __objects.
+        """
         return FileStorage.__objects
 
     def new(self, obj):
@@ -53,7 +57,3 @@ class FileStorage:
                 self.new(obj_instance)
         except FileNotFoundError:
             return
-
-
-# storage = FileStorage()
-# storage.reload()
