@@ -6,14 +6,6 @@ FileStorage module.
 import json
 from datetime import datetime
 from os import path
-from models.base_model import BaseModel
-from models.user import User
-from models.user import User
-from models.state import State
-from models.city import City
-from models.place import Place
-from models.amenity import Amenity
-from models.review import Review
 
 
 class FileStorage:
@@ -46,6 +38,14 @@ class FileStorage:
         """
         Deserializes the JSON file to __object.
         """
+        from models.base_model import BaseModel
+        from models.user import User
+        from models.user import User
+        from models.state import State
+        from models.city import City
+        from models.place import Place
+        from models.amenity import Amenity
+from models.review import Review
         dict_class = {"Amenity": Amenity, "BaseModel": BaseModel,
                       "City": City, "Place": Place, "Review": Review,
                       "State": State, "User": User}
