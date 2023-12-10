@@ -53,7 +53,7 @@ class FileStorage:
                       "City": City, "Place": Place, "Review": Review,
                       "State": State, "User": User}
         try:
-            with open(FileStorage.__file_path, 'r' encoding='utf-8') as file:
+            with open(FileStorage.__file_path, 'r', encoding='utf-8') as file:
                 data_file = json.load(file)
                 for key, value in data_file.items():
                     self.new(dict_class[value['__class__']](**value))
