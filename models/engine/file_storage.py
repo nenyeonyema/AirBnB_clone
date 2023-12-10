@@ -5,10 +5,7 @@ FileStorage module.
 
 import json
 from datetime import datetime
-from os.path import isfile
-import sys
-import os
-import models
+from os import path
 from models.base_model import BaseModel
 from models.user import User
 from models.user import User
