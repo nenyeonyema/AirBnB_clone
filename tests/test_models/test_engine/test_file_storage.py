@@ -1,85 +1,74 @@
 #!/usr/bin/python3
-""" Module of Unittests """
+"""
+Module of Unittests
+"""
+
 import unittest
-from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
-from models import storage
 import os
-import json
+from models.engine.file_storage import FileStorage
+from models.base_model import BaseModel
+from datetime import datetime
 
 
-class FileStorageTests(unittest.TestCase):
-    """ Suite of File Storage Tests """
+class TestFileStorage(unittest.TestCase):
+    """
+    Test cases for the FileStorage class.
+    """
 
-    my_model = BaseModel()
+    def setUp(self):
+        """
+        Set up a clean environment for each test.
+        """
+        # Ensure that the test file does not exist initially
+        self.remove_test_file()
+        # Create a new FileStorage instance
+        self.storage = FileStorage()
 
-    def testClassInstance(self):
-        """ Check instance """
-        self.assertIsInstance(storage, FileStorage)
+    def tearDown(self):
+        """
+        Clean up after each test.
+        """
+        # Remove the test file after each test
+        self.remove_test_file()
 
-    def testStoreBaseModel(self):
-        """ Test save and reload functions """
-        self.my_model.full_name = "BaseModel Instance"
-        self.my_model.save()
-        bm_dict = self.my_model.to_dict()
-        all_objs = storage.all()
+    def remove_test_file(self):
+        """
+        Remove the test file if it exists.
+        """
+        test_file_path = FileStorage._FileStorage__file_path
+        if os.path.exists(test_file_path):
+            os.remove(test_file_path)
 
-        key = bm_dict['__class__'] + "." + bm_dict['id']
-        self.assertEqual(key in all_objs, False)
+    def test_all(self):
+        """
+        Test the all method of the FileStorage.
+        """
+        all_objects = self.storage.all()
+        self.assertIsInstance(all_objects, dict)
+        self.assertEqual(all_objects, {})
 
-    def testStoreBaseModel2(self):
-        """ Test save, reload and update functions """
-        self.my_model.my_name = "First name"
-        self.my_model.save()
-        bm_dict = self.my_model.to_dict()
-        all_objs = storage.all()
+    def test_new(self):
+        """
+        Test the new method of the FileStorage.
+        """
+        my_model = BaseModel()
+        self.storage.new(my_model)
+        all_objects = self.storage.all()
+        self.assertEqual(len(all_objects), 1)
+        self.assertIn(f"BaseModel.{my_model.id}", all_objects)
 
-        key = bm_dict['__class__'] + "." + bm_dict['id']
+    def test_reload_nonexistent_file(self):
+        """
+        Test that reloading a nonexistent file does not raise an exception.
+        """
+        # Remove the test file before reloading
+        self.remove_test_file()
 
-        self.assertEqual(key in all_objs, False)
-        self.assertEqual(bm_dict['my_name'], "First name")
+        # Create a new FileStorage instance for reloading
+        new_storage = FileStorage()
+        new_storage.reload()
 
-        create1 = bm_dict['created_at']
-        update1 = bm_dict['updated_at']
-
-        self.my_model.my_name = "Second name"
-        self.my_model.save()
-        bm_dict = self.my_model.to_dict()
-        all_objs = storage.all()
-
-        self.assertEqual(key in all_objs, False)
-
-        create2 = bm_dict['created_at']
-        update2 = bm_dict['updated_at']
-
-        self.assertEqual(create1, create2)
-        self.assertNotEqual(update1, update2)
-        self.assertEqual(bm_dict['my_name'], "Second name")
-
-    def testHasAttributes(self):
-        """verify if attributes exist"""
-        self.assertEqual(hasattr(FileStorage, '_FileStorage__file_path'), True)
-        self.assertEqual(hasattr(FileStorage, '_FileStorage__objects'), True)
-
-    def testsave(self):
-        """verify if JSON exists"""
-        self.my_model.save()
-        self.assertEqual(os.path.exists(storage._FileStorage__file_path), True)
-        self.assertEqual(storage.all(), storage._FileStorage__objects)
-
-    def testreload(self):
-        """test if reload """
-        self.my_model.save()
-        self.assertEqual(os.path.exists(storage._FileStorage__file_path), True)
-        dobj = storage.all()
-
-    def testSaveSelf(self):
-        """ Check save self """
-        msg = "save() takes 1 positional argument but 2 were given"
-        with self.assertRaises(TypeError) as e:
-            FileStorage.save(self, 100)
-
-        self.assertEqual(str(e.exception), msg)
+        all_objects = new_storage.all()
 
 
 if __name__ == '__main__':

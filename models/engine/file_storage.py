@@ -3,6 +3,8 @@
 Module for FileStorage class.
 """
 import json
+import os
+from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -20,19 +22,17 @@ class FileStorage:
 
     def save(self):
         """Serializes __objects to the JSON file (path: __file_path)."""
-        serialized_objects = {key: obj.to_dict() for key,
+        obj_dict = {key: obj.to_dict() for key,
                               obj in self.__objects.items()}
         with open(self.__file_path, 'w') as file:
-            json.dump(serialized_objects, file)
+            json.dump(obj_dict, file)
 
     def reload(self):
         """Deserializes the JSON file to __objects (if the file exists)."""
-        try:
+        if os.path.exists(self.__file_path):
             with open(self.__file_path, 'r') as file:
-                data = json.load(file)
-                for key, value in data.items():
+                obj_dict = json.load(file)
+                for key, value in obj_dict.items():
                     class_name, obj_id = key.split('.')
-                    obj = eval(class_name)(**value)
-                    self.__objects[key] = obj
-        except FileNotFoundError:
-            pass
+                    class_instance = eval(class_name)(**value)
+                    self.__objects[key] = class_instance
