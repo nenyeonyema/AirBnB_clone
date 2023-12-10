@@ -7,13 +7,8 @@ from datetime import datetime
 import json
 from os.path import isfile
 import models
-from models.amenity import Amenity
 from models.base_model import BaseModel
-from models.city import City
-from models.place import Place
-from models.review import Review
-from models.state import State
-from models.user import User
+
 
 class FileStorage:
     """
@@ -52,6 +47,14 @@ class FileStorage:
         """
         Deserializes the JSON file to __object.
         """
+        from models.amenity import Amenity
+        from models.base_model import BaseModel
+        from models.city import City
+        from models.place import Place
+        from models.review import Review
+        from models.state import State
+        from models.user import User
+
         if isfile(FileStorage.__file_path):
             with open(FileStorage.__file_path, 'r', encoding="UTF-8") as f:
                 load = json.load(f)
