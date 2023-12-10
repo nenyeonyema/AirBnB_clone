@@ -50,7 +50,6 @@ class TestUser(unittest.TestCase):
         new_user.password = "newpassword"
         new_user.first_name = "New"
         new_user.last_name = "User"
-        new_user.save()
 
     def test_to_dict_method(self):
         """

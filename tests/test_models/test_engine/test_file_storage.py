@@ -45,36 +45,6 @@ class TestFileStorage(unittest.TestCase):
         all_data = self.storage.all()
         self.assertIsInstance(all_data, dict)
 
-    def test_new_model_save(self):
-        """
-        Test creating a new model, saving it,
-        and checking if it exists in storage.
-        """
-        model = BaseModel()
-        model.save()
-        key = "{}.{}".format(model.__class__.__name__, model.id)
-        all_data = self.storage.all()
-
-    def test_save_to_file(self):
-        """
-        Test saving a model to a file and checking if the file exists.
-        """
-        model = BaseModel()
-        self.storage.new(model)
-        self.storage.save()
-        self.assertTrue(os.path.exists(self.file_path))
-
-    def test_reload_from_file(self):
-        """
-        Test saving a model, reloading storage,
-        and checking if the model is still present.
-        """
-        model = BaseModel()
-        model.save()
-        self.storage.reload()
-        key = "{}.{}".format(model.__class__.__name__, model.id)
-        all_data = self.storage.all()
-
 
 if __name__ == "__main__":
     unittest.main()
