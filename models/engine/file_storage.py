@@ -7,7 +7,13 @@ from datetime import datetime
 import json
 from os.path import isfile
 import models
-
+from models.amenity import Amenity
+from models.base_model import BaseModel
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 class FileStorage:
     """
@@ -55,17 +61,6 @@ class FileStorage:
                                               (load[key]))
                     load.update({key: new_base})
 
-    def __checker(self, Class, key):
-        """
-        Checker checking
-        """
-        from models.amenity import Amenity
-        from models.base_model import BaseModel
-        from models.city import City
-        from models.place import Place
-        from models.review import Review
-        from models.state import State
-        from models.user import User
         d_dict = {"Amenity": Amenity, "BaseModel": BaseModel,
                   "City": City, "Place": Place, "Review": Review,
                   "State": State, "User": User}
