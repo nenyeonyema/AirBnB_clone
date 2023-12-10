@@ -5,7 +5,7 @@ FileStorage module.
 
 import json
 from datetime import datetime
-from os import path
+import os
 
 
 class FileStorage:
@@ -49,10 +49,8 @@ class FileStorage:
         dict_class = {"Amenity": Amenity, "BaseModel": BaseModel,
                       "City": City, "Place": Place, "Review": Review,
                       "State": State, "User": User}
-        try:
-            with open(FileStorage.__file_path, encoding='utf-8') as f:
-                data_file = json.load(f)
-                for key, value in data_file.items():
+
+        if os.path.exists(FileStorage.__file_path) is True:
+            with open(FileStorage.__file_path, 'r', encoding='utf-8') as f:
+                for key, value in json.load(f).items():
                     self.new(dict_class[value['__class__']](**value))
-        except FileNotFoundError:
-            pass
