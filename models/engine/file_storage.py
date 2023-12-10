@@ -6,7 +6,6 @@ FileStorage module.
 from datetime import datetime
 import json
 from os.path import isfile
-import models
 from models.base_model import BaseModel
 
 
