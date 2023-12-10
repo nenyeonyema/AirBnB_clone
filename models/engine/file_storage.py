@@ -53,6 +53,7 @@ class FileStorage:
                     new_base = self.__checker(check_name,
                                               (load[key]))
                     load.update({key: new_base})
+
     def __checker(self, Class, key):
         """
         Checker
