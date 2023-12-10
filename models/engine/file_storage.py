@@ -23,34 +23,53 @@ class FileStorage:
 
     def new(self, obj):
         """Sets in __objects the obj with key <obj class name>.id."""
-        key = obj.__class__.__name__ + "." + obj.id
-        FileStorage.__objects[key] = obj
+        self.__objects.update({obj.id: obj})
 
     def save(self):
         """Serializes __objects to the JSON file."""
-        serialized_objects = {}
-        for key, value in FileStorage.__objects.items():
-            serialized_objects[key] = value.to_dict()
-        with open(FileStorage.__file_path, 'w', encoding='utf-8') as f:
-            json.dump(serialized_objects, f)
+        ser_obj = {}
+        for key in FileStorage.__objects.keys():
+            if type(FileStorage.__objects[key]) is not dict:
+                ddict = FileStorage.__objects[key].to_json()
+                ser_obj({key: ddict})
+            else:
+                ser_obj.update({key: ddict[key]})
+                ser_obj.update({'created_at': str(ser_obj[key]
+                                ['created_at'])})
+                ser_obj.update({'updated_at': str(ser_obj[key]
+                                ['updated_at'])})
+        with open(FileStorage.__file_path, 'w', encoding="UTF-8") as f:
+            json.dump(ser_obj, f)
 
     def reload(self):
         """
         Deserializes the JSON file to __object.
         """
+        if isfile(FileStorage.__file_path):
+            with open(FileStorage.__file_path, 'r', encoding="UTF-8") as f:
+                load = json.load(f)
+                for key in load.keys():
+                    check_name = load[key]['__class__']
+                    new_base = self.__checker(check_name,
+                                              (load[key]))
+                    load.update({key: new_base})
+
+    def __checker(self, Class, key):
+        """
+        Checker checking
+        """
+        from models.amenity import Amenity
         from models.base_model import BaseModel
-        from models.user import User
-        from models.user import User
-        from models.state import State
         from models.city import City
         from models.place import Place
-        from models.amenity import Amenity
         from models.review import Review
-        dict_class = {"Amenity": Amenity, "BaseModel": BaseModel,
-                      "City": City, "Place": Place, "Review": Review,
-                      "State": State, "User": User}
-
-        if os.path.exists(FileStorage.__file_path) is True:
-            with open(FileStorage.__file_path, 'r', encoding='utf-8') as f:
-                for key, value in json.load(f).items():
-                    self.new(dict_class[value['__class__']](**value))
+        from models.state import State
+        from models.user import User
+        d_dict = {"Amenity": Amenity, "BaseModel": BaseModel,
+                  "City": City, "Place": Place, "Review": Review,
+                  "State": State, "User": User}
+        if Class not in d_dict.keys():
+            print("** class doesn't exist **")
+            return None
+        else:
+            return d_dict[Class]
