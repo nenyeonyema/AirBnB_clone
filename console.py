@@ -122,12 +122,18 @@ class HBNBCommand(cmd.Cmd):
         """
         args = shlex.split(arg)
         objects = storage.all()
-        if args and args[0] not in globals():
-            print("** class doesn't exist **")
-            return
-        class_name = args[0] if args else None
-        print([str(obj) for key, obj in objects.items() if
-               not class_name or key.startswith(class_name)])
+        if not args:
+            print([str(obj) for obj in objects.values()])
+        else:
+            class_name = args[0]
+            if class_name not in globals():
+                print("** class doesn't exist **")
+                return
+            if hasattr(globals()[class_name], 'all'):
+                print(globals()[class_name].all())
+            else:
+                print([str(obj) for key, obj in objects.items() if
+                      not class_name or key.startswith(class_name)])
 
     def do_update(self, arg):
         """
