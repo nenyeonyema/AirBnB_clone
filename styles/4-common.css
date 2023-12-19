@@ -1,0 +1,15 @@
+/* Common styling */
+body {
+    margin: 0;
+    padding: 0;
+    color: #484848;
+    font-size: 14px;
+    font-family: Circular,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+main {
+    max-width: 1000px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    min-height: calc(100vh - 130px);
+    align-items: center;
+}
