@@ -25,14 +25,14 @@
     border: 1px solid #DDDDDD;
     border-radius: 4px;
     list-style-type: none;
-    position: absolute; /* makes the list independent from the div */   padding: 10px;
-    margin: 0;
+    position: absolute; /* makes the list independent from the div */   
+    padding: 10px;
     width: 25%;
+    margin: 0;
 }
-
 .locations .popover li {
     margin: 5px 0;
-  }
+}
 .button {
     background-color: #FF5A5F;
     color: #FFFFFF;
